@@ -24,8 +24,8 @@ This is the plan for the SSCC task described in [instructions.md](instructions.m
 - [x] Decide between CMake and Make (see [Decisions](#decisions)).
 - [x] Install the VS Code extensions C/C++ and CMake Tools.
 - [x] Install CMake, Ninja and Clang.
-- [ ] Write a "Hello, World!" program with a minimal `CMakeLists.txt` that requires C++17.
-- [ ] Add the VS Code configuration, and check that the program can be built and debugged in VS Code.
+- [x] Write a "Hello, World!" program with a minimal `CMakeLists.txt` that requires C++17.
+- [x] Add the VS Code configuration, and check that the program can be built and debugged in VS Code.
 
 ### Phase 2: SSCC validator
 
