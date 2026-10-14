@@ -65,7 +65,7 @@ Summary: 2 valid, 4 invalid.
 
 ## Build and test
 
-You need CMake 3.16 or newer and a C++17 compiler. CI builds and tests with GCC and Clang on Linux and with MSVC on Windows. The first configure downloads GoogleTest 1.18.0 for the unit tests.
+You need CMake 3.20 or newer and a C++17 compiler. CI builds and tests with GCC and Clang on Linux and with MSVC on Windows. The first configure downloads GoogleTest 1.18.0 for the unit tests.
 
 ```sh
 cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
@@ -123,7 +123,7 @@ Each feature is marked with a `// C++17:` comment where it is used.
 | `inline constexpr` variables                                                   | `gs1.hpp`, `sscc.hpp`                                 |
 | `constexpr` lambda and `static_assert` without a message                       | `gs1::checkDigit()`                                   |
 | Nested namespace definition                                                    | `namespace sscc::gs1`                                 |
-| `[[nodiscard]]`                                                                | Every function that returns a result                  |
+| `[[nodiscard]]`                                                                | Every public function that returns a result           |
 | `std::filesystem`                                                              | Reading files in `cli.cpp`                            |
 
 ## Project layout

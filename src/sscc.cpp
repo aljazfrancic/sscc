@@ -80,9 +80,7 @@ ValidationResult validate(std::string_view scannedCode, std::string_view company
         return result;
     }
 
-    // An SSCC consists of the extension digit, the company prefix, the serial
-    // reference and the check digit. The serial reference fills the digits
-    // that the company prefix leaves free.
+    // The serial reference fills the digits that the company prefix leaves free.
     const std::string_view sscc = code.substr(kSsccAi.size());
     const std::size_t serialLength = kSsccLength - 2 - companyPrefix.size();
     SsccParts parts{

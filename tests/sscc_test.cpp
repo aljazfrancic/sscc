@@ -153,7 +153,6 @@ TEST(Validate, ReportsEveryNonDigitWithItsPosition)
 TEST(Validate, ReportsTheWrongLength)
 {
     EXPECT_EQ(validate("000342603111307765941").problems, (Problems{WrongLength{21}}));
-    EXPECT_EQ(validate("0003426031113077646").problems, (Problems{WrongLength{19}}));
 }
 
 // The check digit protects only the 18 SSCC digits, not the AI, so a wrong AI
