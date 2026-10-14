@@ -42,6 +42,8 @@
 build/
 Build/
 build-*/
+out/
+cmake-build-*/
 
 # CMake generated files
 CMakeFiles/
@@ -50,6 +52,11 @@ cmake_install.cmake
 Makefile
 install_manifest.txt
 compile_commands.json
+CMakeUserPresets.json
+
+# IDE files (Visual Studio, CLion); .vscode/ is committed on purpose
+.vs/
+.idea/
 
 # Temporary files
 *.tmp
