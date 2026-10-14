@@ -101,13 +101,15 @@ TEST(Cli, ChecksCodesAndFilesInTheOrderOfTheCommandLine)
     EXPECT_EQ(err, "");
 }
 
-// Lines from Windows end with "\r\n", and blank lines are not labels.
-TEST(Cli, SkipsBlankLinesInAFile)
+// Notepad and other Windows tools can start a UTF-8 file with a byte order
+// mark and end its lines with "\r\n". Blank lines are not labels.
+TEST(Cli, ReadsAFileFromWindows)
 {
-    const std::filesystem::path path =
-        std::filesystem::temp_directory_path() / "sscc_test_blank_lines.txt";
+    const std::filesystem::path path = std::filesystem::path{SSCC_BUILD_DIR} / "windows_file.txt";
+    // The BOM is a separate literal, because a hex escape would also take
+    // the digits after it.
     std::ofstream{path, std::ios::binary}
-        << "\r\n00034260311130776594\r\n \t\r\n\r\n00034260311130776570\r\n";
+        << "\xEF\xBB\xBF" "00034260311130776594\r\n \t\r\n\r\n00034260311130776570\r\n";
     const auto [status, out, err] = runProgram({"--file", path.string()});
     std::filesystem::remove(path);
 

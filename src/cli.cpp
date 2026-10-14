@@ -78,7 +78,12 @@ std::vector<std::string> readCodes(const std::filesystem::path& path)
     std::ifstream file{path};  // C++17: file streams also accept a std::filesystem::path.
     std::vector<std::string> codes;
     std::string line;
-    while (std::getline(file, line)) {
+    for (bool firstLine = true; std::getline(file, line); firstLine = false) {
+        // Notepad and other Windows tools can start a UTF-8 file with a byte
+        // order mark (BOM), the bytes EF BB BF, which are not part of a code.
+        if (firstLine && line.compare(0, 3, "\xEF\xBB\xBF") == 0) {
+            line.erase(0, 3);
+        }
         if (!trim(line).empty()) {  // A blank line is not a scanned label.
             codes.push_back(line);
         }

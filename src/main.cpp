@@ -11,6 +11,7 @@
 int main(int argc, char* argv[])
 {
     // C++17: std::string_view refers to each argument without copying it.
-    const std::vector<std::string_view> args(argv + 1, argv + argc);
+    // argc is 0 if the program was started without even its own name.
+    const std::vector<std::string_view> args(argc > 0 ? argv + 1 : argv, argv + argc);
     return sscc::run(args, std::cin, std::cout, std::cerr);
 }

@@ -50,9 +50,12 @@ if(BUILD_TESTING)
     add_executable(sscc_tests
         tests/gs1_test.cpp tests/sscc_test.cpp tests/report_test.cpp tests/cli_test.cpp)
     target_link_libraries(sscc_tests PRIVATE sscc_core sscc_warnings GTest::gmock_main)
-    # The command line tests check the six task examples in the data file.
+    # The command line tests check the six task examples in the data file. They
+    # write their own files into the build folder, not into the shared temp
+    # folder, so that the tests of several builds can run at the same time.
     target_compile_definitions(sscc_tests PRIVATE
-        SSCC_EXAMPLES_FILE="${PROJECT_SOURCE_DIR}/data/examples.txt")
+        SSCC_EXAMPLES_FILE="${PROJECT_SOURCE_DIR}/data/examples.txt"
+        SSCC_BUILD_DIR="${PROJECT_BINARY_DIR}")
 
     # Each test becomes a separate CTest test, so ctest and the VS Code test
     # explorer show them one by one.
