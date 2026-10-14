@@ -13,13 +13,20 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-add_executable(sscc src/main.cpp)
-
-# Strict warnings on every compiler. CI also passes
-# -DCMAKE_COMPILE_WARNING_AS_ERROR=ON to turn them into errors.
+# Strict warnings for our own targets only, not for third-party code such as
+# GoogleTest. CI also passes -DCMAKE_COMPILE_WARNING_AS_ERROR=ON.
+add_library(sscc_warnings INTERFACE)
 if(MSVC)
-    # /Zc:__cplusplus makes MSVC report the real standard in __cplusplus.
-    target_compile_options(sscc PRIVATE /W4 /permissive- /Zc:__cplusplus)
+    target_compile_options(sscc_warnings INTERFACE /W4 /permissive-)
 else()
-    target_compile_options(sscc PRIVATE -Wall -Wextra -Wpedantic)
+    target_compile_options(sscc_warnings INTERFACE -Wall -Wextra -Wpedantic)
 endif()
+
+# The checks live in a library without input or output, so the console
+# program and the unit tests can share them.
+add_library(sscc_core STATIC src/sscc.cpp src/report.cpp)
+target_include_directories(sscc_core PUBLIC src)
+target_link_libraries(sscc_core PRIVATE sscc_warnings)
+
+add_executable(sscc src/main.cpp)
+target_link_libraries(sscc PRIVATE sscc_core sscc_warnings)

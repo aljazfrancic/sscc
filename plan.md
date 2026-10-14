@@ -29,14 +29,14 @@ This is the plan for the SSCC task described in [instructions.md](instructions.m
 
 ### Phase 2: SSCC validator
 
-- [ ] Accept the scanner output as it is: the AI followed by the SSCC, without `[FNC1]`.
-- [ ] Check that the input contains only digits and is 20 digits long (a 2-digit AI and an 18-digit SSCC).
-- [ ] Check that the AI is `00` (SSCC), and name other known AIs, such as `02`.
-- [ ] Split the SSCC into the extension digit, the company prefix, the serial reference and the check digit.
-- [ ] Check that the company prefix is the TSX prefix `34260311`.
-- [ ] Verify the check digit with the GS1 modulo-10 algorithm.
-- [ ] Report every problem of a label and say exactly what is wrong (Bonus 1).
-- [ ] Print a clear, user-friendly verdict for each label to the console.
+- [x] Accept the scanner output as it is: the AI followed by the SSCC, without `[FNC1]`.
+- [x] Check that the input contains only digits and is 20 digits long (a 2-digit AI and an 18-digit SSCC).
+- [x] Check that the AI is `00` (SSCC), and name other known AIs, such as `02`.
+- [x] Split the SSCC into the extension digit, the company prefix, the serial reference and the check digit.
+- [x] Check that the company prefix is the TSX prefix `34260311`.
+- [x] Verify the check digit with the GS1 modulo-10 algorithm.
+- [x] Report every problem of a label and say exactly what is wrong (Bonus 1).
+- [x] Print a clear, user-friendly verdict for each label to the console.
 
 ### Phase 3: Input (Bonus 2)
 
