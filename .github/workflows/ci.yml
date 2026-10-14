@@ -1,6 +1,8 @@
 # Builds the program and runs the tests on every push to main and on every
-# pull request: with GCC and Clang on Linux, and with MSVC on Windows. Warnings
-# are errors, so a warning from any of the three compilers fails the build.
+# pull request, with GCC and Clang on Linux and MSVC on Windows. Each compiler
+# builds Release, which users run and in which the optimizer finds more
+# warnings, and Debug, which keeps the asserts and, with MSVC, the bounds
+# checks of the standard library. Warnings are errors, so any warning fails.
 name: CI
 
 on:
@@ -14,20 +16,24 @@ permissions:
 
 jobs:
   build-and-test:
-    name: ${{ matrix.name }}
+    name: ${{ matrix.compiler }} ${{ matrix.build-type }}
     runs-on: ${{ matrix.os }}
     strategy:
-      # Finish the other jobs after a failure, so every compiler reports.
+      # Finish the other jobs after a failure, so every combination reports.
       fail-fast: false
       matrix:
+        compiler: [GCC, Clang, MSVC]
+        build-type: [Debug, Release]
+        # Each entry adds the runner and the CMake arguments of one compiler
+        # to both of its build types.
         include:
-          - name: GCC on Linux
+          - compiler: GCC
             os: ubuntu-latest
             cmake-args: -DCMAKE_CXX_COMPILER=g++
-          - name: Clang on Linux
+          - compiler: Clang
             os: ubuntu-latest
             cmake-args: -DCMAKE_CXX_COMPILER=clang++
-          - name: MSVC on Windows
+          - compiler: MSVC
             os: windows-latest
             cmake-args: ""  # The default Visual Studio generator uses MSVC.
     steps:
@@ -35,10 +41,10 @@ jobs:
       - name: Configure
         run: >
           cmake -S . -B build ${{ matrix.cmake-args }}
-          -DCMAKE_BUILD_TYPE=Release -DCMAKE_COMPILE_WARNING_AS_ERROR=ON
+          -DCMAKE_BUILD_TYPE=${{ matrix.build-type }} -DCMAKE_COMPILE_WARNING_AS_ERROR=ON
       # The Visual Studio generator builds several configurations, so the
       # build and the tests name the one they use.
       - name: Build
-        run: cmake --build build --config Release --parallel
+        run: cmake --build build --config ${{ matrix.build-type }} --parallel
       - name: Test
-        run: ctest --test-dir build --build-config Release --output-on-failure
+        run: ctest --test-dir build --build-config ${{ matrix.build-type }} --output-on-failure

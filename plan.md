@@ -51,7 +51,7 @@ This is the plan for the SSCC task described in [instructions.md](instructions.m
 
 ### Phase 5: Continuous integration
 
-- [x] Build and test in a GitHub Actions matrix: GCC and Clang on Linux, MSVC on Windows.
+- [x] Build and test in a GitHub Actions matrix: GCC and Clang on Linux, MSVC on Windows, each in Debug and Release.
 - [x] Treat compiler warnings as errors, and add a CI badge to the README.
 
 ### Phase 6: Final documentation and publishing
@@ -71,6 +71,7 @@ This is the plan for the SSCC task described in [instructions.md](instructions.m
 - **Only AI `00` (SSCC) is accepted.** Any other AI makes a label invalid, and the message names that AI from a small table of common AIs. A general GS1 parser for all AIs is out of scope, because it would need fixed and variable field lengths, the invisible FNC1 separators (lost in the Notepad captures) and separate checks for each AI.
 - **Windows Mobile Notepad does not matter.** It is only how the samples were captured. What matters is their format: the AI is included, but `[FNC1]` is not.
 - **GCC, Clang and MSVC.** The code uses standard C++17 only and is tested with all three compilers in CI.
+- **Debug and Release in CI.** Release is what users run, and its optimizer finds more warnings. Debug keeps the asserts and, with MSVC, the bounds checks of the standard library.
 
 ## C++17 features
 
