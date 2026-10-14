@@ -1,0 +1,44 @@
+# Builds the program and runs the tests on every push to main and on every
+# pull request: with GCC and Clang on Linux, and with MSVC on Windows. Warnings
+# are errors, so a warning from any of the three compilers fails the build.
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build-and-test:
+    name: ${{ matrix.name }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      # Finish the other jobs after a failure, so every compiler reports.
+      fail-fast: false
+      matrix:
+        include:
+          - name: GCC on Linux
+            os: ubuntu-latest
+            cmake-args: -DCMAKE_CXX_COMPILER=g++
+          - name: Clang on Linux
+            os: ubuntu-latest
+            cmake-args: -DCMAKE_CXX_COMPILER=clang++
+          - name: MSVC on Windows
+            os: windows-latest
+            cmake-args: ""  # The default Visual Studio generator uses MSVC.
+    steps:
+      - uses: actions/checkout@v7
+      - name: Configure
+        run: >
+          cmake -S . -B build ${{ matrix.cmake-args }}
+          -DCMAKE_BUILD_TYPE=Release -DCMAKE_COMPILE_WARNING_AS_ERROR=ON
+      # The Visual Studio generator builds several configurations, so the
+      # build and the tests name the one they use.
+      - name: Build
+        run: cmake --build build --config Release --parallel
+      - name: Test
+        run: ctest --test-dir build --build-config Release --output-on-failure

@@ -51,8 +51,8 @@ This is the plan for the SSCC task described in [instructions.md](instructions.m
 
 ### Phase 5: Continuous integration
 
-- [ ] Build and test in a GitHub Actions matrix: GCC and Clang on Linux, MSVC on Windows.
-- [ ] Treat compiler warnings as errors, and add a CI badge to the README.
+- [x] Build and test in a GitHub Actions matrix: GCC and Clang on Linux, MSVC on Windows.
+- [x] Treat compiler warnings as errors, and add a CI badge to the README.
 
 ### Phase 6: Final documentation and publishing
 

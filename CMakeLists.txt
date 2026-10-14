@@ -59,4 +59,12 @@ if(BUILD_TESTING)
     enable_testing()
     include(GoogleTest)
     gtest_discover_tests(sscc_tests)
+
+    # The unit tests call sscc::run(), so this test runs the real program once
+    # to check main(). It passes on its output and ignores the exit status,
+    # which is 1 because four of the six examples are invalid.
+    add_test(NAME Program.ChecksTheTaskExamples
+        COMMAND sscc --file "${PROJECT_SOURCE_DIR}/data/examples.txt")
+    set_tests_properties(Program.ChecksTheTaskExamples PROPERTIES
+        PASS_REGULAR_EXPRESSION "Summary: 2 valid, 4 invalid\\.")
 endif()
