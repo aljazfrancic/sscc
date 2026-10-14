@@ -41,8 +41,6 @@ namespace sscc::gs1 {
 // time with examples 1 and 4 from the task, whose weighted sums are 136 and 130.
 // These checks stay here even with unit tests: they cost nothing at run time,
 // and they break the build if checkDigit stops being constexpr.
-// TODO(Phase 4, see plan.md): Test checkDigit fully in the unit tests, with the
-// six examples, the example from the GS1 spec (Table 7-9) and edge cases.
 static_assert(checkDigit("03426031113077659") == 4);
 static_assert(checkDigit("03426031113077657") == 0);
 

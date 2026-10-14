@@ -46,8 +46,8 @@ This is the plan for the SSCC task described in [instructions.md](instructions.m
 
 ### Phase 4: Unit tests (Bonus 3)
 
-- [ ] Add GoogleTest 1.18.0 with `FetchContent`, and register the tests with CTest.
-- [ ] Test the check digit, each type of error, a label with several errors, and the six examples.
+- [x] Add GoogleTest 1.18.0 with `FetchContent`, and register the tests with CTest.
+- [x] Test the check digit, each type of error, a label with several errors, and the six examples.
 
 ### Phase 5: Continuous integration
 
