@@ -11,14 +11,14 @@ namespace sscc::gs1 {
 namespace {
 
 // The 17 SSCC digits before the check digit in the task examples. Example 5
-// is left out, because a digit is missing. Examples 2 and 3 end with 2 and 4
-// on the label, which is why they are invalid.
+// is left out, because a digit is missing. The labels of examples 2 and 3 end
+// with 2 and 4 instead, so their check digits are wrong.
 TEST(CheckDigit, MatchesTheTaskExamples)
 {
     EXPECT_EQ(checkDigit("03426031113077659"), 4);  // Example 1.
     EXPECT_EQ(checkDigit("04426031113077651"), 7);  // Example 2.
     EXPECT_EQ(checkDigit("03426031113077614"), 3);  // Example 3.
-    EXPECT_EQ(checkDigit("03426031113077657"), 0);  // Example 4, whose sum 130 needs nothing.
+    EXPECT_EQ(checkDigit("03426031113077657"), 0);  // Example 4: 130 is a multiple of ten.
     EXPECT_EQ(checkDigit("03426032113077463"), 6);  // Example 6.
 }
 

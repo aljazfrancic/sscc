@@ -56,10 +56,10 @@ This is the plan for the SSCC task described in [instructions.md](instructions.m
 
 ### Phase 6: Final documentation and publishing
 
-- [ ] Write `README.md` with build instructions, usage, the results, and notes on GS1 and C++17.
-- [ ] Review the code against the ground rules.
-- [ ] Add the GitHub "About" description and topics, with `gh` or in the web UI.
-- [ ] Make the repository public.
+- [x] Write `README.md` with build instructions, usage, the results, and notes on GS1 and C++17.
+- [x] Review the code against the ground rules.
+- [x] Add the GitHub "About" description and topics, with `gh` or in the web UI.
+- [x] Make the repository public.
 
 ## Decisions
 
@@ -74,7 +74,7 @@ This is the plan for the SSCC task described in [instructions.md](instructions.m
 
 ## C++17 features
 
-These are the candidates, each used only where it fits: `std::string_view`, `std::optional`, `std::variant` with `std::visit`, structured bindings, `if` and `switch` with initializers, `[[nodiscard]]`, `inline constexpr` variables, nested namespaces, `constexpr` lambdas with `static_assert`, `std::filesystem`, class template argument deduction and fold expressions.
+These are the candidates, each used only where it fits: `std::string_view`, `std::optional`, `std::variant` with `std::visit`, structured bindings, `if` and `switch` with initializers, `[[nodiscard]]`, `inline constexpr` variables, nested namespaces, `constexpr` lambdas with `static_assert`, `std::filesystem`, class template argument deduction and fold expressions. All of them are used except `switch` with an initializer, which had no natural place, and the README lists where.
 
 ## Expected results
 

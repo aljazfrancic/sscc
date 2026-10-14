@@ -1,4 +1,4 @@
-# 3.16 matches the minimum of GoogleTest 1.18, which the unit tests will use.
+# 3.16 matches the minimum of GoogleTest 1.18, which the unit tests use.
 # The range also enables the newer CMake policies, up to CMake 4.2.
 cmake_minimum_required(VERSION 3.16...4.2)
 
@@ -61,8 +61,8 @@ if(BUILD_TESTING)
     gtest_discover_tests(sscc_tests)
 
     # The unit tests call sscc::run(), so this test runs the real program once
-    # to check main(). It passes on its output and ignores the exit status,
-    # which is 1 because four of the six examples are invalid.
+    # to check main(). It passes if the output has the expected summary. The
+    # exit status is ignored, because it is 1: four of the six labels are invalid.
     add_test(NAME Program.ChecksTheTaskExamples
         COMMAND sscc --file "${PROJECT_SOURCE_DIR}/data/examples.txt")
     set_tests_properties(Program.ChecksTheTaskExamples PROPERTIES
