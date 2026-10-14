@@ -40,9 +40,9 @@ This is the plan for the SSCC task described in [instructions.md](instructions.m
 
 ### Phase 3: Input (Bonus 2)
 
-- [ ] Read codes from a text file, one code per line, with the six examples in `data/examples.txt`.
-- [ ] Read codes that the user types into the console.
-- [ ] Show usage help with `--help`.
+- [x] Read codes from a text file, one code per line, with the six examples in `data/examples.txt`.
+- [x] Read codes that the user types into the console.
+- [x] Show usage help with `--help`.
 
 ### Phase 4: Unit tests (Bonus 3)
 
@@ -65,6 +65,8 @@ This is the plan for the SSCC task described in [instructions.md](instructions.m
 
 - **CMake instead of Make.** CMake is overkill for "Hello, World!", but the project also needs several compilers, Windows, a CI matrix and GoogleTest. Make cannot build with MSVC without a second build script, while a single `CMakeLists.txt` covers everything and still generates Makefiles on Linux.
 - **Input from both a file and the console.** The file holds the six examples, and the console lets a user check any label. A GUI is not needed, because the task allows a CLI.
+- **`main()` only calls `sscc::run()`.** `run()` gets the arguments and the streams as parameters, so the unit tests can run the whole program without a console.
+- **Exit status as in grep and diff.** 0 means that all labels are valid, 1 that a label is invalid, and 2 that the command line is wrong or a file cannot be read.
 - **GoogleTest for the unit tests.** It is the most widely used C++ test framework and works well with CMake, CTest and VS Code. `FetchContent` pins its version, so nothing has to be installed, and version 1.18 itself requires C++17.
 - **Only AI `00` (SSCC) is accepted.** Any other AI makes a label invalid, and the message names that AI from a small table of common AIs. A general GS1 parser for all AIs is out of scope, because it would need fixed and variable field lengths, the invisible FNC1 separators (lost in the Notepad captures) and separate checks for each AI.
 - **Windows Mobile Notepad does not matter.** It is only how the samples were captured. What matters is their format: the AI is included, but `[FNC1]` is not.

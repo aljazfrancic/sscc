@@ -82,6 +82,10 @@ struct ValidationResult {
     [[nodiscard]] bool isValid() const noexcept { return problems.empty(); }
 };
 
+/// The text without leading and trailing whitespace, such as the '\r' of a
+/// Windows line ending. validate() ignores this whitespace.
+[[nodiscard]] std::string_view trim(std::string_view text) noexcept;
+
 /// Checks one scanned code, which is the AI followed by the SSCC, without
 /// FNC1, exactly as the RF terminal sends it. Surrounding whitespace, such as
 /// the '\r' of a Windows line ending, is ignored. Every problem is reported,

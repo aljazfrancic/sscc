@@ -22,9 +22,10 @@ else()
     target_compile_options(sscc_warnings INTERFACE -Wall -Wextra -Wpedantic)
 endif()
 
-# The checks live in a library without input or output, so the console
-# program and the unit tests can share them.
-add_library(sscc_core STATIC src/sscc.cpp src/report.cpp)
+# Everything except main() is in a library that the unit tests share with the
+# console program. Only cli.cpp does input and output, through streams that
+# the tests can replace.
+add_library(sscc_core STATIC src/sscc.cpp src/report.cpp src/cli.cpp)
 target_include_directories(sscc_core PUBLIC src)
 target_link_libraries(sscc_core PRIVATE sscc_warnings)
 

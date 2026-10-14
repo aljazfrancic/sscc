@@ -22,7 +22,8 @@ constexpr bool isWhitespace(char c) noexcept
     return isAnyOf(c, ' ', '\t', '\r', '\n', '\v', '\f');
 }
 
-/// The text without leading and trailing whitespace.
+}  // namespace
+
 std::string_view trim(std::string_view text) noexcept
 {
     while (!text.empty() && isWhitespace(text.front())) {
@@ -33,8 +34,6 @@ std::string_view trim(std::string_view text) noexcept
     }
     return text;
 }
-
-}  // namespace
 
 ValidationResult validate(std::string_view scannedCode, std::string_view companyPrefix)
 {
